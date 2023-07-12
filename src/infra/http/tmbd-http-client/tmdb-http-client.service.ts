@@ -46,15 +46,16 @@ export class TmdbHttpClientService {
     }
   }
 
-  async Post<Request, Response>(
+  async post<Request, Response>(
     resource: string,
     data: Request,
     params?: any,
   ): Promise<Response> {
     try {
+      const headers = await this.getHeaders();
       const response = await firstValueFrom(
-        this.httpService.post(this.apiUrl + resource, {
-          headers: await this.getHeaders(),
+        this.httpService.post(this.apiUrl + resource, data, {
+          headers,
           params,
         }),
       );
