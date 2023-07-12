@@ -1,14 +1,13 @@
-import { Injectable } from '@nestjs/common';
-import { TmdbHttpClientService } from 'src/infra/http/tmbd-http-client/tmdb-http-client.service';
+import { Inject, Injectable } from '@nestjs/common';
 
 @Injectable()
 export class GetMostPopularMoviesBrService {
-  constructor(private readonly TmdbHttpClient: TmdbHttpClientService) {}
+  constructor(
+    @Inject('ItmdbHttpRepository') private readonly tmdbHttpRepository,
+  ) {}
 
   async execute(): Promise<any> {
-    const response = await this.TmdbHttpClient.get(
-      '/movie/popular?language=pt-BR?region=BR?limit=10',
-    );
+    const response = await this.tmdbHttpRepository.getMostPopularMoviesBr();
 
     return response;
   }
