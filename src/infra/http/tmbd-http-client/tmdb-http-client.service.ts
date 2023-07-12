@@ -33,7 +33,7 @@ export class TmdbHttpClientService {
 
   async get<Response>(resource: string, params?: any): Promise<Response> {
     try {
-      this.logger.debug(`GET ${this.apiUrl + resource}`);
+      this.logger.log(`GET ${this.apiUrl + resource}`);
       const headers = await this.getHeaders();
       const response = await firstValueFrom(
         this.httpService.get(this.apiUrl + resource, {
@@ -53,7 +53,7 @@ export class TmdbHttpClientService {
     params?: any,
   ): Promise<Response> {
     try {
-      this.logger.debug(`POST ${this.apiUrl + resource}`);
+      this.logger.log(`POST ${this.apiUrl + resource}`);
       const headers = await this.getHeaders();
       const response = await firstValueFrom(
         this.httpService.post(this.apiUrl + resource, data, {
