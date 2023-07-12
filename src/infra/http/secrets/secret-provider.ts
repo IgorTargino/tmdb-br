@@ -2,9 +2,9 @@ import { Injectable, Logger } from '@nestjs/common';
 import { ConstantKeys } from './enums/constant-keys.enum';
 
 @Injectable()
-export class SecretService {
+export class SecretProvider {
   constructor(private readonly logger: Logger) {
-    this.logger = new Logger(SecretService.name);
+    this.logger = new Logger(SecretProvider.name);
   }
 
   async get(key: ConstantKeys) {

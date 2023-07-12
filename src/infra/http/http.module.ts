@@ -4,15 +4,15 @@ import { GetMostPopularMoviesBrService } from 'src/domain/use-cases/movies/get-m
 import { MovieController } from './controllers/movie.controller';
 import { TmdbHttpClientService } from './tmbd-http-client/tmdb-http-client.service';
 import { ConstantKeys } from './secrets/enums/constant-keys.enum';
-import { SecretService } from './secrets/secret.service';
+import { SecretProvider } from './secrets/secret-provider';
 
 const secretProvider = Object.values(ConstantKeys).map((key) => ({
   provide: key,
-  useFactory: async (secretService: SecretService) => {
+  useFactory: async (secretService: SecretProvider) => {
     const secret = await secretService.get(key);
     return secret;
   },
-  inject: [SecretService],
+  inject: [SecretProvider],
 }));
 
 @Global()
@@ -23,7 +23,7 @@ const secretProvider = Object.values(ConstantKeys).map((key) => ({
     Logger,
     TmdbHttpClientService,
     GetMostPopularMoviesBrService,
-    SecretService,
+    SecretProvider,
     ...secretProvider,
   ],
   exports: [TmdbHttpClientService, ...secretProvider],
