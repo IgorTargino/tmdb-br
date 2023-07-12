@@ -12,7 +12,7 @@ export class SecretService {
       this.logger.error(`Missing environment variable: ${key}`);
     }
 
-    this.logger.verbose(`Getting environment variable: ${key}`);
+    this.logger.log(`Getting environment variable: ${key}`);
 
     return process.env[key];
   }

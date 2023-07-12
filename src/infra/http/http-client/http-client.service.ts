@@ -4,6 +4,8 @@ import {
   HttpException,
   HttpStatus,
   Injectable,
+  Logger,
+  LoggerService,
   NotFoundException,
 } from '@nestjs/common';
 import { AxiosRequestConfig, AxiosError } from 'axios';
@@ -11,7 +13,13 @@ import { firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class HttpClientService {
-  constructor(private readonly httpService: HttpService) {}
+  protected defaultConfig: Partial<AxiosRequestConfig> = {};
+  constructor(
+    private readonly logger: LoggerService,
+    private readonly httpService: HttpService,
+  ) {
+    this.logger = new Logger(HttpClientService.name);
+  }
 
   async get<Response>(
     url: string,
@@ -43,6 +51,7 @@ export class HttpClientService {
   private handleException(exception: AxiosError) {
     if (exception.response) {
       const { data, status } = exception.response;
+      this.logger.error(status, data);
       this.checkNotAuthorizedException(status, data);
       this.checkNotFoundException(status, data);
       this.checkBadRequestException(status, data);

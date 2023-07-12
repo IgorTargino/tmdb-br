@@ -20,10 +20,10 @@ const secretProvider = Object.values(ConstantKeys).map((key) => ({
   imports: [AxiosHttpModule],
   controllers: [MovieController],
   providers: [
+    Logger,
     TmdbHttpClientService,
     GetMostPopularMoviesBrService,
     SecretService,
-    Logger,
     ...secretProvider,
   ],
   exports: [TmdbHttpClientService, ...secretProvider],
