@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Logger, Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConstantKeys } from '../secrets/enums/constant-keys.enum';
 import { SecretProvider } from '../secrets/secret.provider';
@@ -27,7 +27,7 @@ const MovieProvider = {
     }),
     MongooseModule.forFeature([{ name: 'Movie', schema: MovieSchema }]),
   ],
-  providers: [MovieProvider],
+  providers: [Logger, MovieProvider],
   exports: [MovieProvider],
 })
 export class DatabaseModule {}

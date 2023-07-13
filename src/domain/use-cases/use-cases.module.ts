@@ -6,11 +6,20 @@ import { TmdbHttpService } from 'src/infra/http/tmdb/tmdb-http.service';
 import { TmdbConfigProvider } from 'src/infra/http/tmdb/providers/tmdb-config.provider';
 import { HttpClientService } from 'src/infra/http/http-client/http-client.service';
 import { HttpModule } from '@nestjs/axios';
+import { LikeMovieService } from './movies/like-movie.service';
+import { DeslikeMovieService } from './movies/deslike-movie.service';
 
 const TmdbRepository = {
   provide: 'TmdbHttpRepository',
   useClass: TmdbHttpService,
 };
+
+const MovieServicers = [
+  GetMostPopularMoviesBrService,
+  GetMostLikedMoviesService,
+  LikeMovieService,
+  DeslikeMovieService,
+];
 
 @Module({
   imports: [DatabaseModule, HttpModule],
@@ -20,9 +29,8 @@ const TmdbRepository = {
     TmdbConfigProvider,
     HttpClientService,
     TmdbRepository,
-    GetMostPopularMoviesBrService,
-    GetMostLikedMoviesService,
+    ...MovieServicers,
   ],
-  exports: [GetMostPopularMoviesBrService, GetMostLikedMoviesService],
+  exports: [...MovieServicers],
 })
 export class UseCasesModule {}
