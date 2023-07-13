@@ -24,7 +24,7 @@ export class HttpClientService {
     config?: AxiosRequestConfig,
   ): Promise<Response> {
     try {
-      this.logger.log(`GET ${url}`);
+      this.logger.log(`GET ${(config.baseURL, url)}`);
       const response = await firstValueFrom(this.httpService.get(url, config));
       return response.data;
     } catch (exception) {
@@ -38,7 +38,7 @@ export class HttpClientService {
     config?: AxiosRequestConfig,
   ): Promise<Response> {
     try {
-      this.logger.log(`POST ${url}`);
+      this.logger.log(`POST ${(config.baseURL, url)}`);
       const response = await firstValueFrom(
         this.httpService.post(url, data, config),
       );
