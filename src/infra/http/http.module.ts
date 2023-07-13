@@ -1,6 +1,5 @@
 import { Global, Logger, Module } from '@nestjs/common';
 import { HttpModule as AxiosHttpModule } from '@nestjs/axios';
-import { GetMostPopularMoviesBrService } from 'src/domain/use-cases/movies/get-most-popular-movies-br.service';
 import { MovieController } from './controllers/movie.controller';
 import { SecretProvider } from '../secrets/secret.provider';
 import { HttpClientService } from './http-client/http-client.service';
@@ -10,17 +9,13 @@ import { AuthService } from './auth/auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { SecretModule } from '../secrets/secret.module';
 import { ConstantKeys } from '../secrets/enums/constant-keys.enum';
-import { TmdbHttpService } from './tmdb/tmdb-http.service';
-
-const TmdbRepository = {
-  provide: 'TmdbHttpRepository',
-  useClass: TmdbHttpService,
-};
+import { UseCasesModule } from 'src/domain/use-cases/use-cases.module';
 
 @Global()
 @Module({
   imports: [
     AxiosHttpModule,
+    UseCasesModule,
     JwtModule.registerAsync({
       imports: [SecretModule],
       inject: [SecretProvider],
@@ -40,8 +35,6 @@ const TmdbRepository = {
     AuthService,
     TmdbConfigProvider,
     HttpClientService,
-    TmdbRepository,
-    GetMostPopularMoviesBrService,
   ],
   exports: [HttpClientService],
 })

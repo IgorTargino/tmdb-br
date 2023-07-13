@@ -12,7 +12,7 @@ export class GetMostPopularMoviesBrService {
     this.logger = new Logger(GetMostPopularMoviesBrService.name);
   }
 
-  async execute(limit: number): Promise<Movie[]> {
+  async execute(limit?: number): Promise<Movie[]> {
     try {
       const response = await this.tmdbHttpRepository.getMostPopularMovies({
         language: 'pt-BR',
