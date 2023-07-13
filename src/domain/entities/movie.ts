@@ -1,7 +1,7 @@
 export abstract class Movie {
-  id?: number;
+  id?: string;
   likes?: number;
   title: string;
-  overview: string;
-  poster_path: string;
+  overview?: string;
+  poster_path?: string;
 }

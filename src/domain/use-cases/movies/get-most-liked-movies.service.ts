@@ -11,10 +11,9 @@ export class GetMostLikedMoviesService {
   }
   async execute(limit?: number) {
     try {
-      const movies = (await this.movieRepository.findAllMovies()).slice(
-        0,
-        limit,
-      );
+      const movies = (await this.movieRepository.findAllMovies())
+        .slice(0, limit)
+        .sort((a, b) => b.likes - a.likes);
 
       return movies;
     } catch (error) {
