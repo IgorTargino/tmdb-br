@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConstantKeys } from '../secrets/enums/constant-keys.enum';
-import { SecretProvider } from '../secrets/secret-provider';
+import { SecretProvider } from '../secrets/secret.provider';
 import { SecretModule } from '../secrets/secret.module';
 
 @Module({

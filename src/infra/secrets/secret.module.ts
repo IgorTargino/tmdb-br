@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { SecretProvider } from './secret-provider';
+import { SecretProvider } from './secret.provider';
 
 @Module({
   providers: [SecretProvider],

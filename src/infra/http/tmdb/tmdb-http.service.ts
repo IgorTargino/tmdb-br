@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { HttpClientService } from '../http-client/http-client.service';
-import { TmdbConfigProvider } from './providers/tmdb-config-provider';
+import { TmdbConfigProvider } from './providers/tmdb-config.provider';
 import {
   GetMostPopularMoviesDTO,
   ResponseGetMostPopularMoviesDTO,
-} from './dto/get-most-popular-movies-dto';
+} from './dto/get-most-popular-movies.dto';
 
 @Injectable()
 export class TmdbHttpService {
