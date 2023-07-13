@@ -1,4 +1,4 @@
-abstract class MovieDTO {
+export abstract class MovieDTO {
   adult: boolean;
   backdrop_path: string;
   genre_ids: number[];
