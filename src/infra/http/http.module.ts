@@ -28,7 +28,7 @@ const TmdbRepository = {
         return {
           global: true,
           secret: await secretService.get(ConstantKeys.secret_key),
-          signOptions: { expiresIn: '60s' },
+          signOptions: { expiresIn: '3600s' },
         };
       },
     }),
