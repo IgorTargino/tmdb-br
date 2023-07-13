@@ -12,7 +12,6 @@ export class GetMostPopularMoviesBrService {
     const response = await this.tmdbHttpRepository.getMostPopularMovies({
       language: 'pt-BR',
       region: 'BR',
-      page: 1,
     });
 
     return response;
