@@ -6,4 +6,6 @@ export enum ConstantKeys {
   secret_key = 'SECRET_KEY',
   client_id = 'CLIENT_ID',
   client_secret = 'CLIENT_SECRET',
+
+  mongo_db_password = 'MONGO_DB_PASSWORD',
 }

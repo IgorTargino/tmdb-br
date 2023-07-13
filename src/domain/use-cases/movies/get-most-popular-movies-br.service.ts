@@ -1,11 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { ItmdbHttpRepository } from 'src/domain/interfaces/itmdb-http-repository';
+import { TmdbHttpRepository } from 'src/domain/repositories/tmdb-http-repository';
 
 @Injectable()
 export class GetMostPopularMoviesBrService {
   constructor(
-    @Inject('ItmdbHttpRepository')
-    private readonly tmdbHttpRepository: ItmdbHttpRepository,
+    @Inject('TmdbHttpRepository')
+    private readonly tmdbHttpRepository: TmdbHttpRepository,
   ) {}
 
   async execute(): Promise<any> {
