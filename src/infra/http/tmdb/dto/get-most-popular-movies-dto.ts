@@ -15,14 +15,14 @@ abstract class MovieDTO {
   vote_count: number;
 }
 
-export abstract class ResponseGetMostPopularMoviesDto {
+export abstract class ResponseGetMostPopularMoviesDTO {
   page: number;
   results: MovieDTO[];
   total_pages: number;
   total_results: number;
 }
 
-export abstract class GetMostPopularMoviesDto {
+export abstract class GetMostPopularMoviesDTO {
   language?: string;
   region?: string;
   page?: number;
