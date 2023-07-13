@@ -6,6 +6,7 @@ import { ConfigModule } from '@nestjs/config';
 import { ConstantKeys } from './infra/secrets/enums/constant-keys.enum';
 import { SecretProvider } from './infra/secrets/secret-provider';
 import { SecretModule } from './infra/secrets/secret.module';
+import { DatabaseModule } from './infra/database/database.module';
 
 const secretProvider = Object.values(ConstantKeys).map((key) => ({
   provide: key,
@@ -17,7 +18,12 @@ const secretProvider = Object.values(ConstantKeys).map((key) => ({
 }));
 @Global()
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }), SecretModule, HttpModule],
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    SecretModule,
+    HttpModule,
+    DatabaseModule,
+  ],
   controllers: [AppController],
   providers: [AppService, Logger, ...secretProvider],
   exports: [...secretProvider],
