@@ -2,9 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { HttpClientService } from '../../http-client/http-client.service';
 import { TmdbConfigProvider } from '../providers/tmdb-config-provider';
 import {
-  GetMostPopularMoviesDto,
-  ResponseGetMostPopularMoviesDto,
-} from '../dtos/get-most-popular-movies-dto';
+  GetMostPopularMoviesDTO,
+  ResponseGetMostPopularMoviesDTO,
+} from '../dto/get-most-popular-movies-dto';
 
 @Injectable()
 export class TmdbHttpRepository {
@@ -17,7 +17,7 @@ export class TmdbHttpRepository {
     language,
     region,
     page,
-  }: GetMostPopularMoviesDto): Promise<ResponseGetMostPopularMoviesDto> {
+  }: GetMostPopularMoviesDTO): Promise<ResponseGetMostPopularMoviesDTO> {
     const config = await this.tmdbProvider.getConfig();
     let url = `/movie/popular`;
 
@@ -26,7 +26,7 @@ export class TmdbHttpRepository {
     page && (url += `&page=${page}`);
 
     const response =
-      await this.httpClientService.get<ResponseGetMostPopularMoviesDto>(
+      await this.httpClientService.get<ResponseGetMostPopularMoviesDTO>(
         url,
         config,
       );

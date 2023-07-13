@@ -1,6 +1,6 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { AxiosHeaders, AxiosRequestConfig } from 'axios';
-import { ConstantKeys } from '../../../../helpers/secrets/enums/constant-keys.enum';
+import { ConstantKeys } from '../../../secrets/enums/constant-keys.enum';
 
 @Injectable()
 export class TmdbConfigProvider {
