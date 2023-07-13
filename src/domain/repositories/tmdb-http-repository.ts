@@ -3,8 +3,8 @@ import {
   ResponseGetMostPopularMoviesDTO,
 } from 'src/infra/http/tmdb/dto/get-most-popular-movies-dto';
 
-export interface ItmdbHttpRepository {
-  getMostPopularMovies(
+export abstract class TmdbHttpRepository {
+  abstract getMostPopularMovies(
     params: GetMostPopularMoviesDTO,
   ): Promise<ResponseGetMostPopularMoviesDTO>;
 }

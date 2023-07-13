@@ -4,17 +4,17 @@ import { GetMostPopularMoviesBrService } from 'src/domain/use-cases/movies/get-m
 import { MovieController } from './controllers/movie.controller';
 import { SecretProvider } from '../secrets/secret-provider';
 import { HttpClientService } from './http-client/http-client.service';
-import { TmdbHttpRepository } from './tmdb/repositories/tmdb-http-repository';
 import { TmdbConfigProvider } from './tmdb/providers/tmdb-config-provider';
 import { AuthController } from './controllers/auth.controller';
 import { AuthService } from './auth/auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { SecretModule } from '../secrets/secret.module';
 import { ConstantKeys } from '../secrets/enums/constant-keys.enum';
+import { TmdbHttpService } from './tmdb/tmdb-http.service';
 
 const TmdbRepository = {
-  provide: 'ItmdbHttpRepository',
-  useClass: TmdbHttpRepository,
+  provide: 'TmdbHttpRepository',
+  useClass: TmdbHttpService,
 };
 
 @Global()
