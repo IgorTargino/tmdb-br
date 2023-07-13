@@ -6,6 +6,7 @@ import {
   Injectable,
   Logger,
   NotFoundException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { AxiosRequestConfig, AxiosError } from 'axios';
 import { firstValueFrom } from 'rxjs';
@@ -62,7 +63,7 @@ export class HttpClientService {
 
   private checkNotAuthorizedException(status: number, data: unknown) {
     if (status === HttpStatus.UNAUTHORIZED) {
-      throw new HttpException(JSON.stringify(data), status);
+      throw new UnauthorizedException(JSON.stringify(data));
     }
   }
 

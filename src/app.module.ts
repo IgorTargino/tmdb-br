@@ -3,7 +3,6 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { HttpModule } from './infra/http/http.module';
 import { ConfigModule } from '@nestjs/config';
-import { JwtModule } from '@nestjs/jwt';
 import { ConstantKeys } from './infra/secrets/enums/constant-keys.enum';
 import { SecretProvider } from './infra/secrets/secret-provider';
 import { SecretModule } from './infra/secrets/secret.module';
@@ -18,20 +17,7 @@ const secretProvider = Object.values(ConstantKeys).map((key) => ({
 }));
 @Global()
 @Module({
-  imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
-    SecretModule,
-    JwtModule.registerAsync({
-      imports: [SecretModule],
-      inject: [SecretProvider],
-      useFactory: async (secretService: SecretProvider) => ({
-        global: true,
-        secret: await secretService.get(ConstantKeys.secret_key),
-        signOptions: { expiresIn: '3600s' },
-      }),
-    }),
-    HttpModule,
-  ],
+  imports: [ConfigModule.forRoot({ isGlobal: true }), SecretModule, HttpModule],
   controllers: [AppController],
   providers: [AppService, Logger, ...secretProvider],
   exports: [...secretProvider],
