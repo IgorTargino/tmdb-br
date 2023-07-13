@@ -1,6 +1,6 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
+import { Movie } from 'src/domain/entities/movie';
 import { TmdbHttpRepository } from 'src/domain/repositories/tmdb-http-repository';
-import { Movie } from 'src/domain/models/movie';
 
 @Injectable()
 export class GetMostPopularMoviesBrService {

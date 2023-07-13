@@ -2,7 +2,7 @@ import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { GetMostPopularMoviesBrService } from 'src/domain/use-cases/movies/get-most-popular-movies-br.service';
 import { AuthGuard } from '../auth/auth.guard';
 import { ApiQuery, ApiTags } from '@nestjs/swagger';
-import { Movie } from 'src/domain/models/movie';
+import { Movie } from 'src/domain/entities/movie';
 
 @UseGuards(AuthGuard)
 @Controller('movie')
