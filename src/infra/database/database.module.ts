@@ -1,8 +1,15 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConstantKeys } from '../secrets/enums/constant-keys.enum';
-import { SecretProvider } from '../secrets/secret-provider';
+import { SecretProvider } from '../secrets/secret.provider';
 import { SecretModule } from '../secrets/secret.module';
+import { MongoMovieService } from './mongo/mongo-movie.service';
+import { MovieSchema } from './mongo/mongo-movie.schema';
+
+const MovieProvider = {
+  provide: 'MovieRepository',
+  useClass: MongoMovieService,
+};
 
 @Module({
   imports: [
@@ -18,7 +25,9 @@ import { SecretModule } from '../secrets/secret.module';
         };
       },
     }),
+    MongooseModule.forFeature([{ name: 'Movie', schema: MovieSchema }]),
   ],
-  providers: [],
+  providers: [MovieProvider],
+  exports: [MovieProvider],
 })
 export class DatabaseModule {}

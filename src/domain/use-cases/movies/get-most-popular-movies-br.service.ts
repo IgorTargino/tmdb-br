@@ -1,6 +1,6 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
-import { TmdbHttpRepository } from 'src/domain/repositories/tmdb-http-repository';
-import { Movie } from 'src/domain/models/movie';
+import { Movie } from 'src/domain/entities/movie';
+import { TmdbHttpRepository } from 'src/domain/repositories/tmdb-http.repository';
 
 @Injectable()
 export class GetMostPopularMoviesBrService {
@@ -12,7 +12,7 @@ export class GetMostPopularMoviesBrService {
     this.logger = new Logger(GetMostPopularMoviesBrService.name);
   }
 
-  async execute(limit: number): Promise<Movie[]> {
+  async execute(limit?: number): Promise<Movie[]> {
     try {
       const response = await this.tmdbHttpRepository.getMostPopularMovies({
         language: 'pt-BR',
