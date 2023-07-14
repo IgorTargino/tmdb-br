@@ -1,0 +1,14 @@
+<div class="card-movies">
+  <div class="movie-card" *ngFor="let movie of movies">
+    <div class="movie-image">
+      <img [src]="getMoviePosterUrl(movie.poster_path)" alt="Movie Poster" />
+    </div>
+    <div class="movie-content">
+      <h3 class="movie-title">{{ movie.title }}</h3>
+      <p class="movie-overview">{{ movie.overview }}</p>
+      <button class="like-button" (click)="toggleLike(movie)">
+        <span class="heart-icon" [class.liked]="movie.liked">&#10084;</span>
+      </button>
+    </div>
+  </div>
+</div>

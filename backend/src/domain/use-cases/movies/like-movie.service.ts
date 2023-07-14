@@ -13,19 +13,19 @@ export class LikeMovieService {
   }
   async execute(movie: LikeMovieDto) {
     try {
-      if (movie.movieId) {
-        const movieInDb = await this.movieRepository.findMovieById(
-          movie.movieId,
-        );
+      const movieExists = await this.movieRepository.findMovieByTitle(
+        movie.title,
+      );
 
-        return await this.movieRepository.addLike(movieInDb.id);
+      if (movieExists) return this.movieRepository.addLike(movieExists.id);
+      else {
+        const movieForTmdb = movie.title && movie.overview && movie.poster_path;
+
+        if (!movieForTmdb)
+          throw new HttpException('Movie data is invalid', 400);
+
+        return this.movieRepository.createMovie({ ...movie, likes: 1 });
       }
-
-      const movieForTmdb = movie.title && movie.overview && movie.poster_path;
-
-      if (!movieForTmdb) throw new HttpException('Movie data is invalid', 400);
-
-      return this.movieRepository.createMovie({ ...movie, likes: 1 });
     } catch (error) {
       this.logger.error(error);
       throw error;
