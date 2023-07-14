@@ -1,36 +1,22 @@
-import { Logger, Module } from '@nestjs/common';
-import { DatabaseModule } from 'src/infra/database/database.module';
+import { Logger, Module, forwardRef } from '@nestjs/common';
 import { GetMostPopularMoviesBrService } from './movies/get-most-popular-movies-br.service';
-import { GetMostLikedMoviesService } from './movies/get-most-liked-movies.service';
-import { TmdbHttpService } from 'src/infra/http/tmdb/tmdb-http.service';
-import { TmdbConfigProvider } from 'src/infra/http/tmdb/providers/tmdb-config.provider';
-import { HttpClientService } from 'src/infra/http/http-client/http-client.service';
-import { HttpModule } from '@nestjs/axios';
+import { GetMostLikedMoviesBrService } from './movies/get-most-liked-movies-br.service';
 import { LikeMovieService } from './movies/like-movie.service';
 import { DeslikeMovieService } from './movies/deslike-movie.service';
-
-const TmdbRepository = {
-  provide: 'TmdbHttpRepository',
-  useClass: TmdbHttpService,
-};
+import { DatabaseModule } from 'src/infra/database/database.module';
+import { HttpModule } from 'src/infra/http/http.module';
 
 const MovieServicers = [
   GetMostPopularMoviesBrService,
-  GetMostLikedMoviesService,
+  GetMostLikedMoviesBrService,
   LikeMovieService,
   DeslikeMovieService,
 ];
 
 @Module({
-  imports: [DatabaseModule, HttpModule],
+  imports: [forwardRef(() => DatabaseModule), forwardRef(() => HttpModule)],
   controllers: [],
-  providers: [
-    Logger,
-    TmdbConfigProvider,
-    HttpClientService,
-    TmdbRepository,
-    ...MovieServicers,
-  ],
+  providers: [Logger, ...MovieServicers],
   exports: [...MovieServicers],
 })
 export class UseCasesModule {}
