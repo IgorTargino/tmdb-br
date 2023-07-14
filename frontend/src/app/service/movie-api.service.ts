@@ -2,17 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Movie } from '../entities/movie.entity';
 
-interface Movie {
-  id: number;
-  title: string;
-  overview: string;
-  poster_path: string;
-}
 @Injectable({
   providedIn: 'root',
 })
-export class TmdbService {
+export class MovieApiService {
   private baseUrl = environment.apiUrl;
   private accessToken: string | undefined;
 
@@ -32,11 +27,12 @@ export class TmdbService {
     this.accessToken = token;
   }
 
-  getPopularMovies(limit: number): Observable<Movie[]> {
+  getPopularMovies(limit?: number): Observable<Movie[]> {
     const url = `${this.baseUrl}/movie/popular`;
 
     let params = new HttpParams();
-    params = params.set('limit', limit.toString());
+
+    if (limit) params = params.set('limit', limit?.toString());
 
     const headers = this.getHeaders();
 
@@ -54,12 +50,12 @@ export class TmdbService {
     return this.http.get<Movie[]>(url, { headers, params });
   }
 
-  likeMovie(
-    movieId?: number,
-    title?: string,
-    overview?: string,
-    posterPath?: string
-  ): Observable<Movie> {
+  likeMovie({
+    movieId,
+    title,
+    overview,
+    posterPath,
+  }: LikeMovieDto): Observable<Movie> {
     const url = `${this.baseUrl}/movie/like`;
     const headers = this.getHeaders();
 
@@ -73,7 +69,7 @@ export class TmdbService {
     return this.http.post<Movie>(url, body, { headers });
   }
 
-  dislikeMovie(movieId: number): Observable<Movie> {
+  dislikeMovie(movieId: string): Observable<Movie> {
     const url = `${this.baseUrl}/movie/dislike`;
     const headers = this.getHeaders();
     const body = { movieId };
