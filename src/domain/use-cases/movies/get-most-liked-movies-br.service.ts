@@ -1,14 +1,12 @@
 import { Inject, Logger } from '@nestjs/common';
 import { MovieRepository } from 'src/domain/repositories/movie.repository';
 
-export class GetMostLikedMoviesService {
+export class GetMostLikedMoviesBrService {
   constructor(
     @Inject('MovieRepository')
     private readonly movieRepository: MovieRepository,
     private readonly logger: Logger,
-  ) {
-    this.logger = new Logger(GetMostLikedMoviesService.name);
-  }
+  ) {}
   async execute(limit?: number) {
     try {
       const movies = (await this.movieRepository.findAllMovies())

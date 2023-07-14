@@ -10,6 +10,12 @@ import { JwtModule } from '@nestjs/jwt';
 import { SecretModule } from '../secrets/secret.module';
 import { ConstantKeys } from '../secrets/enums/constant-keys.enum';
 import { UseCasesModule } from 'src/domain/use-cases/use-cases.module';
+import { TmdbHttpService } from './tmdb/tmdb-http.service';
+
+const TmdbRepository = {
+  provide: 'TmdbHttpRepository',
+  useClass: TmdbHttpService,
+};
 
 @Global()
 @Module({
@@ -35,7 +41,8 @@ import { UseCasesModule } from 'src/domain/use-cases/use-cases.module';
     AuthService,
     TmdbConfigProvider,
     HttpClientService,
+    TmdbRepository,
   ],
-  exports: [HttpClientService],
+  exports: [TmdbRepository],
 })
 export class HttpModule {}

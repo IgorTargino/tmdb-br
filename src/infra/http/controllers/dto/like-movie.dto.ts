@@ -1,10 +1,10 @@
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { ApiPropertyOptional } from '@nestjs/swagger';
 import { IsString } from 'class-validator';
 
 export class LikeMovieDto {
   @ApiPropertyOptional()
   @IsString()
-  id: string;
+  movieId: string;
 
   @ApiPropertyOptional()
   @IsString()

@@ -1,12 +1,10 @@
 import {
   BadRequestException,
-  HttpException,
   Inject,
   Injectable,
   Logger,
   UnauthorizedException,
 } from '@nestjs/common';
-import { ExceptionsHandler } from '@nestjs/core/exceptions/exceptions-handler';
 import { JwtService } from '@nestjs/jwt';
 import { ConstantKeys } from 'src/infra/secrets/enums/constant-keys.enum';
 
