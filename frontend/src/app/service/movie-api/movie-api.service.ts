@@ -29,7 +29,6 @@ export class MovieApiService {
   }
 
   private getHeaders(): HttpHeaders {
-    console.log(this.accessToken);
     if (this.accessToken) {
       return new HttpHeaders({ Authorization: `Bearer ${this.accessToken}` });
     } else {
