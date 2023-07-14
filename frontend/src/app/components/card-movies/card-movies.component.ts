@@ -1,20 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-import { catchError, switchMap } from 'rxjs/operators';
-import { Movie } from '../entities/movie.entity';
-import { MovieApiService } from '../service/movie-api.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { catchError, switchMap } from 'rxjs';
+import { Movie } from 'src/app/entities/movie.entity';
+import { MovieApiService } from 'src/app/service/movie-api/movie-api.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-popular-movies',
-  templateUrl: './popular-movies.component.html',
-  styleUrls: ['./popular-movies.component.css'],
+  selector: 'app-card-movies',
+  templateUrl: './card-movies.component.html',
+  styleUrls: ['./card-movies.component.scss'],
 })
-export class PopularMoviesComponent implements OnInit {
-  popularMovies: Movie[] = [];
+export class CardMoviesComponent implements OnInit {
+  @Input() movies: Movie[] = [];
+  private readonly clientId = environment.client_id;
+  private readonly clientSecret = environment.client_secret;
 
   constructor(private movieApiService: MovieApiService) {}
 
   ngOnInit(): void {
-    this.loadPopularMovies();
+    this.movieApiService
+      .authenticate(this.clientId, this.clientSecret)
+      .subscribe(async (response) => {
+        await this.movieApiService.setAccessToken(response.access_token);
+
+        this.loadPopularMovies();
+      });
   }
 
   loadPopularMovies(): void {
@@ -27,7 +36,7 @@ export class PopularMoviesComponent implements OnInit {
         })
       )
       .subscribe((movies) => {
-        this.popularMovies = movies;
+        this.movies = movies;
         this.loadLikedMovies();
       });
   }
@@ -65,13 +74,13 @@ export class PopularMoviesComponent implements OnInit {
 
   private loadLikedMovies(): void {
     const likedMovies = JSON.parse(localStorage.getItem('likedMovies') || '');
-    this.popularMovies.forEach((movie) => {
+    this.movies.forEach((movie) => {
       movie.liked = likedMovies.includes(movie.id);
     });
   }
 
   private saveLikedMovies(): void {
-    const likedMovies = this.popularMovies
+    const likedMovies = this.movies
       .filter((movie) => movie.liked)
       .map((movie) => movie.id);
     localStorage.setItem('likedMovies', JSON.stringify(likedMovies));

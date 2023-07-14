@@ -1,7 +1,7 @@
-<div class="popular-movies">
-  <div class="movie-card" *ngFor="let movie of popularMovies">
+<div class="card-movies">
+  <div class="movie-card" *ngFor="let movie of movies">
     <div class="movie-image">
-      <img [src]="getMoviePosterUrl(movie.posterPath)" alt="Movie Poster" />
+      <img [src]="getMoviePosterUrl(movie.poster_path)" alt="Movie Poster" />
     </div>
     <div class="movie-content">
       <h3 class="movie-title">{{ movie.title }}</h3>
