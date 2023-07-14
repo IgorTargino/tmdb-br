@@ -1,12 +1,13 @@
 import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
 import { GetMostPopularMoviesBrService } from 'src/domain/use-cases/movies/get-most-popular-movies-br.service';
 import { AuthGuard } from '../auth/auth.guard';
-import { ApiProperty, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { ApiQuery, ApiTags } from '@nestjs/swagger';
 import { Movie } from 'src/domain/entities/movie';
 import { GetMostLikedMoviesBrService } from 'src/domain/use-cases/movies/get-most-liked-movies-br.service';
 import { LikeMovieDto } from './dto/like-movie.dto';
 import { LikeMovieService } from 'src/domain/use-cases/movies/like-movie.service';
 import { DeslikeMovieService } from 'src/domain/use-cases/movies/deslike-movie.service';
+import { DeslikeMovieDto } from './dto/deslike-movie.dt';
 
 @UseGuards(AuthGuard)
 @Controller('movie')
@@ -34,13 +35,12 @@ export class MovieController {
   }
 
   @Post('like')
-  async likeMovie(@Body('') likeMovieDto: LikeMovieDto): Promise<Movie> {
-    return await this.likeMovieService.execute(likeMovieDto);
+  async likeMovie(@Body('') body: LikeMovieDto): Promise<Movie> {
+    return await this.likeMovieService.execute(body);
   }
 
   @Post('deslike')
-  @ApiProperty({ name: 'movieId', required: true })
-  async deslikeMovie(@Body('') body): Promise<Movie> {
+  async deslikeMovie(@Body('') body: DeslikeMovieDto): Promise<Movie> {
     return await this.deslikeMovieService.execute(body.movieId);
   }
 }
