@@ -3,7 +3,7 @@ import { GetMostPopularMoviesBrService } from 'src/domain/use-cases/movies/get-m
 import { AuthGuard } from '../auth/auth.guard';
 import { ApiProperty, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { Movie } from 'src/domain/entities/movie';
-import { GetMostLikedMoviesService } from 'src/domain/use-cases/movies/get-most-liked-movies.service';
+import { GetMostLikedMoviesBrService } from 'src/domain/use-cases/movies/get-most-liked-movies-br.service';
 import { LikeMovieDto } from './dto/like-movie.dto';
 import { LikeMovieService } from 'src/domain/use-cases/movies/like-movie.service';
 import { DeslikeMovieService } from 'src/domain/use-cases/movies/deslike-movie.service';
@@ -14,7 +14,7 @@ import { DeslikeMovieService } from 'src/domain/use-cases/movies/deslike-movie.s
 export class MovieController {
   constructor(
     private readonly getMostPopularMoviesBrService: GetMostPopularMoviesBrService,
-    private readonly getMostLikedMoviesBrService: GetMostLikedMoviesService,
+    private readonly getMostLikedMoviesBrService: GetMostLikedMoviesBrService,
     private readonly likeMovieService: LikeMovieService,
     private readonly deslikeMovieService: DeslikeMovieService,
   ) {}
